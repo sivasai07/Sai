@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<title>y22cs035 randNum</title>
+</head>
+<body>
+  <script type="text/javascript">
+    var arr = [29,7,26,189,17];
+    randomNum(arr);
+    function randomNum(arr)
+    {
+      document.writeln("Unsorted arr="+arr);    
+      for(var i=0;i<arr.length;i++)
+      {
+        for(var j=0;j<arr.length-i-1;j++)
+        {
+          if(arr[j]>arr[j+1])
+          {
+            var temp=arr[j];
+            arr[j]=arr[j+1];
+            arr[j+1]=arr[j];
+          }
+        }
+      }
+      document.writeln("sorted arr=<br>"+arr);
+      console.log(arr);
+      }
+</script>
+</body>
+</html>
