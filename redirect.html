@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="cric.css" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="#" class="nav_logo">Athletics</a>
+        <ul class="nav_items">
+          <li class="nav_item">
+            <a href="#" class="nav_link">News</a>
+            <a href="#" class="nav_link">Events</a>
+            <a href="#" class="nav_link">Results</a>
+            <a href="#" class="nav_link">Coaches</a>
+            <a href="#" class="nav_link">Athletes</a>
+          </li>
+        </ul>
+        <button class="button" id="sign-out">Sign out</button>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="dashboard">
+      <p>Login Successful!</p>
+      <h1>Welcome to Athletics</h1>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2024 Athletics. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+      // redirect back to the login page
+      document.getElementById("sign-out").addEventListener("click", function () {
+        window.location.href = "sporty.html"; 
+      });
+    </script>
+  </body>
+</html>

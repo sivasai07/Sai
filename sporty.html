@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sporty</title>
+    <link rel="stylesheet" href="cric.css" />
+    <!-- Unicons -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="#" class="nav_logo">Athletics</a>
+        <ul class="nav_items">
+          <li class="nav_item">
+            <a href="#" class="nav_link">News</a>
+            <a href="#" class="nav_link">Events</a>
+            <a href="#" class="nav_link">Results</a>
+            <a href="#" class="nav_link">Coaches</a>
+            <a href="#" class="nav_link">Athletes</a>
+          </li>
+        </ul>
+        <button class="button" id="form-open">Login</button>
+        <button class="button" id="register-form-open">Register</button> <!-- Register Button -->
+      </nav>
+    </header>
+
+    <!-- Home -->
+    <section class="home">
+      <div class="form_container">
+        <i class="uil uil-times form_close"></i>
+        <!-- Login Form -->
+        <div class="form login_form">
+          <form id="login-form">
+            <h2>Login</h2>
+            <div class="input_box">
+              <input type="text" id="username" placeholder="Username or Email" required />
+              <i class="uil uil-envelope-alt email"></i>
+            </div>
+            <div class="input_box">
+              <input type="password" id="password" placeholder="Password" required />
+              <i class="uil uil-lock password"></i>
+              <i class="uil uil-eye-slash pw_hide"></i>
+            </div>
+            <br />
+            <div class="option_field">
+              <span class="checkbox">
+                <input type="checkbox" id="check" />
+                <label for="check">Remember me</label>
+              </span>
+              <a href="#" class="forgot_pw">Forgot password?</a>
+            </div>
+            <button type="submit" class="button">Login</button>
+            <br><br>
+            <center><p style="font-size: 12px;font-family: Poppins, sans-serif;">or you can sign in with</p></center>
+            <br>
+
+            <!-- Social login buttons -->
+            <div class="social_buttons">
+              <a href="#" class="social_button facebook-button">
+                <i class="uil uil-facebook-f"></i>
+              </a>
+              <a href="#" class="social_button google-button">
+                <i class="uil uil-google"></i>
+              </a>
+              <a href="#" class="social_button github-button">
+                <i class="uil uil-github"></i>
+              </a>
+            </div>
+
+            <div class="login_signup">
+              Don't have an account? <a href="#" id="signup">Register</a>
+            </div>
+          </form>
+        </div>
+
+        <!-- Register Form -->
+        <div class="form signup_form">
+          <form action="#">
+            <h2>Register</h2>
+            <div class="input_box">
+              <i class="uil uil-user user-icon"></i>
+              <input type="text" placeholder="Username" required />
+            </div>
+            <div class="input_box">
+              <input type="email" placeholder="Email" required />
+              <i class="uil uil-envelope-alt email"></i>
+            </div>
+            <div class="input_box">
+              <input type="password" placeholder="Create password" required />
+              <i class="uil uil-lock password"></i>
+              <i class="uil uil-eye-slash pw_hide"></i>
+              <!-- Error message displayed below password input -->
+              <p class="password-error-message" style="font-size: 12px; color: red;"></p>
+            </div>
+            <!-- Role Input with Error Message -->
+<div class="input_box">
+  <i class="uil uil-bars menu-icon"></i>
+  <input list="roles" name="role" id="role" placeholder="Choose your role" required />
+  <datalist id="roles">
+    <option value="Coach">Coach</option>
+    <option value="Athlete">Athlete</option>
+    <option value="Physio">Physio</option>
+    <option value="Spectator">Spectator</option>
+  </datalist>
+</div>
+<!-- Role Error Message (Initially hidden) -->
+<p id="role-error-message" style="font-size: 12px; color: red; display: none;"></p>
+            <button class="button" id="registerSubmit">Submit</button>
+
+            <div class="login_signup">
+              Already have an account? <a href="#" id="login">Login</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script src="athlet.js"></script>
+  </body>
+</html>
