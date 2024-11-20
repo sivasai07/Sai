@@ -11,12 +11,8 @@ const formOpenBtn = document.querySelector("#form-open"),
   registerSubmitBtn = document.querySelector(".signup_form button");
 
 // Open login form
-formOpenBtn.addEventListener("click", () =>{
-   home.classList.add("show");
-  document.querySelector(".signup_form").classList.add("hidden");
-  document.querySelector(".login_form").classList.remove("hidden");
-console.log('hello')
-})
+formOpenBtn.addEventListener("click", () => home.classList.add("show"));
+
 // Close form
 formCloseBtn.addEventListener("click", () => home.classList.remove("show"));
 
@@ -33,163 +29,138 @@ pwShowHide.forEach((icon) => {
     }
   });
 });
+
+// Validate password function
+function validatePassword(password) {
+  const minLength = 8;
+  const specialCharRegex = /[@!_()*&^%$#+=]/;
+  const uppercaseRegex = /[A-Z]/;
+  const numberRegex = /[0-9]/;
+
+  // password is at least 8 characters long checking
+  if (password.length < minLength) {
+    showPasswordError("Password must be at least 8 characters long.");
+    return false;
+  }
+
+  // password contains at least one special character checking
+  if (!specialCharRegex.test(password)) {
+    showPasswordError("Password must contain at least one special character");
+    return false;
+  }
+
+  // password contains at least one uppercase letter checking
+  if (!uppercaseRegex.test(password)) {
+    showPasswordError("Password must contain at least one uppercase letter.");
+    return false;
+  }
+
+  // password contains at least one number checking
+  if (!numberRegex.test(password)) {
+    showPasswordError("Password must contain at least one number.");
+    return false;
+  }
+
+  // If all conditions pass, return true
+  hidePasswordError();
+  return true;
+}
+
+// Show password error message
+function showPasswordError(message) {
+  const errorElement = document.querySelector(".password-error-message");
+  errorElement.textContent = message;
+}
+
+// Hide password error message
+function hidePasswordError() {
+  const errorElement = document.querySelector(".password-error-message");
+  errorElement.textContent = "";
+}
+
 // Handle sign-up form
 signupBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    formContainer.classList.add("active");
-    document.querySelector(".login_form").classList.add("hidden");
-    document.querySelector(".signup_form").classList.remove("hidden");
-  });
-  
-  // Handle login form
+  e.preventDefault();
+  formContainer.classList.add("active");
+  document.querySelector(".login_form").classList.add("hidden");
+  document.querySelector(".signup_form").classList.remove("hidden");
+});
+
+// Handle login form
 loginBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    formContainer.classList.remove("active");
-    document.querySelector(".signup_form").classList.add("hidden");
-    document.querySelector(".login_form").classList.remove("hidden");
-  });
-  
-  // Register form open button event
+  e.preventDefault();
+  formContainer.classList.remove("active");
+  document.querySelector(".signup_form").classList.add("hidden");
+  document.querySelector(".login_form").classList.remove("hidden");
+});
+
 // Register form open button event
 registerBtn.addEventListener("click", (e) => {
   e.preventDefault();
   home.classList.add("show");
   formContainer.classList.add("active");
-  document.querySelector(".signup_form").classList.remove("hidden");
   document.querySelector(".login_form").classList.add("hidden");
+  document.querySelector(".signup_form").classList.remove("hidden");
 });
 
-// Helper functions for validation
-function validateEmail(email) {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    return emailRegex.test(email);
-}
+// Register form submission validation
+registerSubmitBtn.addEventListener("click", (e) => {
+  e.preventDefault();
 
-function checkPasswordStrength(password) {
-    const requirements = [
-        { regex: /[a-z]/, message: "At least one lowercase letter" },
-        { regex: /[A-Z]/, message: "At least one uppercase letter" },
-        { regex: /\d/, message: "At least one number" },
-        { regex: /[!@#$%^&*()_+{}|:<>?~`-]/, message: "At least one special character" },
-        { regex: /.{8,}/, message: "Minimum 8 characters" },
-    ];
+  const email = document.querySelector(".signup_form input[type='email']").value;
+  const password = document.querySelector(".signup_form input[type='password']").value;
+  const username = document.querySelector(".signup_form input[type='text']").value;
+  const role = document.querySelector(".signup_form input[name='role']").value;
 
-    const missingRequirements = requirements
-        .filter(req => !req.regex.test(password))
-        .map(req => req.message);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    return missingRequirements;
-}
+  // Validate Email
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
 
-function updatePasswordFeedback(missingRequirements) {
-    const passwordWarning = document.getElementById("passwordWarning");
-    if (missingRequirements.length > 0) {
-      passwordWarning.innerHTML = `Password requirements missing: <ul>${missingRequirements
-        .map(req => `<li>${req}</li>`) // Wrap <li> as a string inside backticks
-        .join("")}</ul>`;
-    passwordWarning.style.display = "block";
-    
-    } else {
-        passwordWarning.innerHTML = "";
-        passwordWarning.style.display = "none";
-    }
-}
+  // Validate Password
+  if (!validatePassword(password)) {
+    return;
+  }
 
-function checkFieldEmpty() {
-  const requiredFields = document.querySelectorAll("#signUpForm input[required], #signUpForm select[required]");
-  return Array.from(requiredFields).every(field => field.value.trim() !== "");
-}
+  // Validate Username
+  if (username.trim() === "") {
+    alert("Please enter a username.");
+    return;
+  }
 
+  // Validate Role selection
+  if (role === "") {
+    alert("Please select a role.");
+    return;
+  }
 
-// Sign up form validation
-document.getElementById("signUpForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+  // If all fields are valid, show success message
+  alert("Registration successful!");
 
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const role = document.getElementById("role").value;
+  // Reset the form after successful registration
+  registerForm.reset();
 
-    // Check if all fields are filled
-    if (!checkFieldEmpty()) {
-        alert("All fields must be filled!");
-        return;
-    }
-
-    // Check email format
-    if (!validateEmail(email)) {
-        alert("Please enter a valid email address.");
-        return;
-    }
-
-    // Check password strength
-    const missingRequirements = checkPasswordStrength(password);
-    if (missingRequirements.length > 0) {
-        alert("Password does not meet the requirements. Please fix the issues and try again.");
-        return;
-    }
-
-    // Send data to backend
-    const response = await fetch("http://localhost:8080/api/auth/signup", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password, role }),
-    });
-
-    if (response.ok) {
-        alert("Sign up successful!");
-        showLogin(); // Automatically show the login form after successful signup
-    } else {
-        alert("Sign up failed!");
-    }
+  // Hide the registration form and show the login form
+  home.classList.remove("show");
+  document.querySelector(".signup_form").classList.add("hidden");
+  document.querySelector(".login_form").classList.remove("hidden");
 });
 
-// Login form validation
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
+// Login form submission validation
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    const username = document.getElementById("loginUsername").value;
-    const password = document.getElementById("loginPassword").value;
+  const username = document.querySelector(".login_form input[type='text']").value;
+  const password = document.querySelector(".login_form input[type='password']").value;
 
-    // Check if login fields are empty
-    if (!username || !password) {
-        alert("Both username and password must be filled!");
-        return;
-    }
-
-    const response = await fetch("http://localhost:8080/api/auth/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-    });
-
-    if (response.ok) {
-        alert("Login successful!");
-    } else {
-        alert("Login failed!");
-    }
+  // Check login credentials (hardcoded for demonstration)
+  if (username === "sivasai07" && password === "SsrMb@29") {
+    window.location.href = "redirect.html"; // Redirect on successful login
+  } else {
+    alert("Invalid login credentials, please try again.");
+  }
 });
 
-// Real-time email validation
-document.getElementById("email").addEventListener("input", () => {
-    const email = document.getElementById("email").value;
-    const emailWarning = document.getElementById("emailWarning");
-    if (!validateEmail(email)) {
-        emailWarning.textContent = "Please enter a valid email address.";
-        emailWarning.style.display = "block";
-    } else {
-        emailWarning.textContent = "";
-        emailWarning.style.display = "none";
-    }
-});
-
-// Real-time password validation
-document.getElementById("password").addEventListener("input", () => {
-    const password = document.getElementById("password").value;
-    const missingRequirements = checkPasswordStrength(password);
-    updatePasswordFeedback(missingRequirements);
-});
