@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sport Management</title>
+  <link rel="stylesheet" href="events.css">
+</head>
+<body>
+  <header>
+    <h1><span>⚽</span> Sport Management</h1>
+    <button id="toggle-theme">🌙 Dark Mode</button>
+  </header>
+
+  <main>
+    <!-- Dashboard Section -->
+    <section id="dashboard">
+      <h2>Dashboard</h2>
+      <div class="dashboard-cards">
+        <div class="dashboard-card">
+          <h3>Total Events</h3>
+          <p id="total-events">0</p>
+        </div>
+        <div class="dashboard-card">
+          <h3>Total Teams</h3>
+          <p id="total-teams">0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Add Event Section -->
+    <section id="add-event">
+      <h2>Add a New Sport Event</h2>
+      <form id="event-form">
+        <label for="event-name">Event Name:</label>
+        <input type="text" id="event-name" placeholder="e.g., Football Championship" required>
+        
+        <label for="sport-name">Sport:</label>
+        <input type="text" id="sport-name" placeholder="e.g., Football" required>
+        
+        <label for="team1-name">Team 1:</label>
+        <input type="text" id="team1-name" required>
+    
+        <label for="team2-name">Team 2:</label>
+        <input type="text" id="team2-name" required>
+    
+        <label for="venue">Venue:</label>
+        <input type="text" id="venue" placeholder="e.g., Stadium Name" required>
+    
+        <label for="event-date">Date:</label>
+        <input type="date" id="event-date" required>
+    
+        <label for="event-description">Event Description:</label>
+        <textarea id="event-description" placeholder="Event details..." required></textarea>
+        
+        <button type="submit">Add Event</button>
+      </form>
+    </section>
+
+    <!-- Event List Section -->
+    <section id="event-list">
+      <h2>Upcoming Events</h2>
+      <div id="events" class="event-container">
+        <p>No events scheduled yet.</p>
+      </div>
+    </section>
+
+    <!-- Leaderboard Section
+    <section id="leaderboard">
+      <h2>Leaderboard</h2>
+      <ul id="leaderboard-list">
+        <li>No data available yet.</li>
+      </ul>
+    </section> -->
+  </main>
+
+  <script src="events.js"></script>
+</body>
+</html>
+
+<footer>
+  <p>&copy; 2024 Sport Management. All rights reserved.</p>
+ <!---- <nav>
+    <a href="#dashboard">Dashboard</a> | 
+    <a href="#add-event">Add Event</a>   |
+    <a href="#event-list">Upcoming Events</a>
+  </nav> -->
+</footer>
