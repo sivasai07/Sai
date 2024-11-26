@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #818cf8;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --gradient-bg: linear-gradient(45deg, #6a11cb, #2575fc);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background-color: var(--card-bg);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar:hover .sidebar-brand {
+            transform: translateX(10px);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .nav-link i {
+            width: 20px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: var(--gradient-bg);
+            padding: 1rem 2rem;
+            height:60px;
+            border-radius: 0.5rem;
+            color: white;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .profile-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+        }
+
+        .card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-card h3 {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+#cancel-button {
+    width: 100px;
+    margin-top: 15px;
+}
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height:50px;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <div class="sidebar-brand">
+        <i class="fas fa-running"></i>
+        <span>Sports Admin</span>
+    </div>
+    <nav>
+        <a href="#" class="nav-link" data-section="dashboard">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-link" data-section="profile">
+            <i class="fas fa-user"></i>
+            <span>My Profile</span>
+        </a>
+        <a href="#" class="nav-link" data-section="athletes">
+            <i class="fas fa-running"></i>
+            <span>Athletes</span>
+        </a>
+        <a href="#" class="nav-link" data-section="coaches">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>Coaches</span>
+        </a>
+        <a href="#" class="nav-link" data-section="teams">
+            <i class="fas fa-users"></i>
+            <span>Teams</span>
+        </a>
+        <a href="#" class="nav-link" data-section="performance">
+            <i class="fas fa-chart-line"></i>
+            <span>Performance</span>
+        </a>
+        <a href="#" class="nav-link" data-section="events">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Events</span>
+        </a>
+    </nav>
+</div>
+
+<div class="main-content">
+    <div class="top-bar">
+        <h1 class="page-title">Dashboard</h1>
+        <div class="profile-section">
+            <div class="profile-image"></div>
+            <span>Admin User</span>
+        </div>
+    </div>
+
+    <div id="dashboard-container" class="container-section">
+        <div class="stats-cards">
+            <div class="stat-card">
+                <h3>Total Athletes</h3>
+                <div class="value">124</div>
+            </div>
+            <div class="stat-card">
+                <h3>Active Coaches</h3>
+                <div class="value">28</div>
+            </div>
+            <div class="stat-card">
+                <h3>Upcoming Events</h3>
+                <div class="value">12</div>
+            </div>
+            <div class="stat-card">
+                <h3>Teams</h3>
+                <div class="value">16</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile-container" class="container-section">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">My Profile</h2>
+                <div class="row">
+                    <!-- Profile Picture -->
+                    <div class="col-md-4 text-center">
+                        <img src="https://via.placeholder.com/150" alt="Profile Picture" class="rounded-circle img-fluid mb-3" style="width: 150px; height: 150px; border: 5px solid var(--primary-color);">
+                        <button class="btn btn-primary mt-2">Change Picture</button>
+                    </div>
+                    <!-- Profile Details -->
+                    <div class="col-md-8">
+                        <h4>Personal Information</h4>
+                        <p><strong>Name:</strong> Admin User</p>
+                        <p><strong>Email:</strong> admin@example.com</p>
+                        <p><strong>Role:</strong> Administrator</p>
+                        <p><strong>Phone:</strong> +1-234-567-890</p>
+                        <p><strong>Joined:</strong> January 10, 2023</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Edit Section -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h2 class="card-title">Edit Profile</h2>
+                <form id="edit-profile-form">
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" id="firstName" class="form-control" placeholder="Enter first name" value="Admin">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter email" value="admin@example.com">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="tel" id="phone" class="form-control" placeholder="Enter phone number" value="+1-234-567-890">
+                            </div>
+                        </div>
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" id="lastName" class="form-control" placeholder="Enter last name" value="User">
+                            </div>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Role</label>
+                                <input type="text" id="role" class="form-control" placeholder="Enter role" value="Administrator" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" id="password" class="form-control" placeholder="Enter new password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-success">Save Changes</button>
+                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="athletes-container" class="container-section">
+        <h2>Athletes</h2>
+        <div id="athletes-list" class="row"></div>
+    </div>
+
+    <div id="coaches-container" class="container-section">
+        <h2>Coaches</h2>
+        <div id="coaches-list" class="row"></div>
+    </div>
+
+    <div id="teams-container" class="container-section">
+        <h2>Teams</h2>
+        <!-- Teams content will go here -->
+    </div>
+
+    <div id="performance-container" class="container-section">
+        <h2>Performance Analytics</h2>
+        <!-- Performance content will go here -->
+    </div>
+
+    <div id="events-container" class="container-section">
+        <h2>Events Calendar</h2>
+        <!-- Events content will go here -->
+    </div>
+</div>
+
+<footer>
+    <p>Sports Admin Dashboard - 2024</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    // Ensure only the dashboard is visible on initial load
+ document.addEventListener('DOMContentLoaded', () => {
+     document.querySelectorAll('.container-section').forEach(container => {
+         container.style.display = 'none'; // Hide all sections
+     });
+     document.getElementById("dashboard-container").style.display = "block"; // Show dashboard by default
+     document.querySelector('.nav-link[data-section="dashboard"]').classList.add('active'); // Set default active link
+ });
+
+ // API Endpoints
+ const athletesEndpoint = "http://localhost:8080/api/admin/athletes";
+ const coachesEndpoint = "http://localhost:8080/api/admin/coaches";
+
+ // Navigation handling
+ document.querySelectorAll('.nav-link').forEach(link => {
+     link.addEventListener('click', (e) => {
+         // Prevent default anchor behavior
+         e.preventDefault();
+
+         // Update active state
+         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+         e.target.closest('.nav-link').classList.add('active');
+
+         // Update page title
+         const section = e.target.closest('.nav-link').dataset.section;
+         document.querySelector('.page-title').textContent =
+             section.charAt(0).toUpperCase() + section.slice(1);
+
+         // Hide all sections
+         document.querySelectorAll('.container-section').forEach(container => {
+             container.style.display = 'none';
+         });
+
+         // Show selected section
+         document.getElementById(`${section}-container`).style.display = 'block';
+
+         // Fetch data if needed
+         if (section === 'athletes') {
+             fetchAndDisplay(athletesEndpoint, 'athletes');
+         } else if (section === 'coaches') {
+             fetchAndDisplay(coachesEndpoint, 'coaches');
+         }
+     });
+ });
+
+ // Fetch and display data
+ function fetchAndDisplay(endpoint, type) {
+     fetch(endpoint)
+         .then(response => response.json())
+         .then(data => {
+             if (type === "athletes") {
+                 displayAthletes(data);
+             } else {
+                 displayCoaches(data);
+             }
+         })
+         .catch(err => console.error("Error fetching data:", err));
+ }
+
+ function displayAthletes(athletes) {
+    const container = document.getElementById("athletes-list");
+    container.innerHTML = "";
+
+    if (athletes.length === 0) {
+        container.innerHTML = '<p class="text-center">No athletes found.</p>';
+        return;
+    }
+
+    // Create a table to display rows
+    const table = document.createElement("table");
+    table.classList.add("table", "table-hover");
+
+    const thead = `
+        <thead>
+            <tr>
+                <th>Athlete ID</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+    `;
+    table.innerHTML = thead;
+
+    const tbody = document.createElement("tbody");
+    athletes.forEach(athlete => {
+        const row = `
+            <tr>
+                <td>${athlete.athleteld}</td>
+                <td>${athlete.username}</td>
+                <td>${athlete.firstName}</td>
+                <td>${athlete.category}</td>
+            </tr>
+        `;
+
+        // Convert string row to element
+        const rowElement = document.createElement("tr");
+        rowElement.innerHTML = row;
+
+        // Add click event listener to display details
+        rowElement.addEventListener("click", () => displayAthleteDetails(athlete));
+
+        tbody.appendChild(rowElement);
+    });
+
+    table.appendChild(tbody);
+    container.appendChild(table);
+}
+// Function to display athlete details
+function displayAthleteDetails(athlete) {
+    let detailsContainer = document.getElementById("athlete-details");
+    if (!detailsContainer) {
+        // Create the details container dynamically if it doesn't exist
+        const detailsHTML = `
+            <div id="athlete-details" class="card mt-4 mx-auto" style="max-width: 500px; text-align: center; display: none;">
+                <div class="card-body">
+                    <h5 id="details-name" class="card-title"></h5>
+                    <p class="card-text">
+                        <strong>Username:</strong> <span id="details-username"></span><br>
+                        <strong>Athlete ID:</strong> <span id="details-athleteId"></span><br>
+                        <strong>User ID:</strong> <span id="details-userId"></span><br>
+                        <strong>Coach ID:</strong> <span id="details-coachId"></span><br>
+                        <strong>Category:</strong> <span id="details-category"></span><br>
+                        <strong>Gender:</strong> <span id="details-gender"></span><br>
+                        <strong>Height:</strong> <span id="details-height"></span> cm<br>
+                        <strong>Weight:</strong> <span id="details-weight"></span> kg<br>
+                        <strong>Birth Date:</strong> <span id="details-birthDate"></span><br>
+                        <strong>Created At:</strong> <span id="details-createdAt"></span><br>
+                        <strong>Updated At:</strong> <span id="details-updatedAt"></span>
+                    </p>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML("beforeend", detailsHTML);
+        detailsContainer = document.getElementById("athlete-details");
+    }
+
+    // Fill the details in the container
+    document.getElementById("details-name").textContent = `${athlete.firstName} ${athlete.lastName}`;
+    document.getElementById("details-username").textContent = athlete.username;
+    document.getElementById("details-athleteId").textContent = athlete.athleteld;
+    document.getElementById("details-userId").textContent = athlete.userld;
+    document.getElementById("details-coachId").textContent = athlete.coachId ? athlete.coachId : "No Coach Assigned";
+    document.getElementById("details-category").textContent = athlete.category;
+    document.getElementById("details-gender").textContent = athlete.gender;
+    document.getElementById("details-height").textContent = athlete.height;
+    document.getElementById("details-weight").textContent = athlete.weight;
+    document.getElementById("details-birthDate").textContent = athlete.birthDate;
+    document.getElementById("details-createdAt").textContent = athlete.createdAt;
+    document.getElementById("details-updatedAt").textContent = athlete.updatedAt;
+
+    // Make the details container visible
+    detailsContainer.style.display = "block";
+}
+
+ // Display Coach Details
+ function displayCoaches(coaches) {
+     const container = document.getElementById("coaches-list");
+     container.innerHTML = "";
+
+     if (coaches.length === 0) {
+         container.innerHTML = '<p class="text-center">No coaches found.</p>';
+         return;
+     }
+
+     coaches.forEach(coach => {
+         const card = `
+             <div class="col-md-4">
+                 <div class="card">
+                     <div class="card-body">
+                         <h5 class="card-title">${coach.firstName} ${coach.lastName}</h5>
+                         <p class="card-text">
+                             <strong>Username:</strong> ${coach.username}<br>
+                             <strong>Category:</strong> ${coach.category}<br>
+                             <strong>Gender:</strong> ${coach.gender}<br>
+                             <strong>Birth Date:</strong> ${coach.birthDate}<br>
+                             <strong>Created At:</strong> ${coach.createdAt}<br>
+                             <strong>Updated At:</strong> ${coach.updatedAt}<br>
+                             <strong>Photo URL:</strong> <a href="${coach.photo_url}" target="_blank">View Photo</a>
+                         </p>
+                     </div>
+                 </div>
+             </div>
+         `;
+         container.innerHTML += card;
+     });
+ }
+
+</script>
+</body>
+</html>
