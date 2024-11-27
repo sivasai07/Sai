@@ -510,6 +510,52 @@ table tr:nth-child(even) {
 table tr:hover {
     background-color: #f1f1f1;
 }
+/*=================achievements========== */ 
+.achievements-container {
+      max-width: 400px;
+      margin: auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .achievements-container h2 {
+      font-size: 1.5em;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .achievement {
+      display: flex;
+      align-items: center;
+      background-color: #f8f8f8;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .achievement-icon {
+      font-size: 1.8em;
+      color: #6a5acd;
+      margin-right: 15px;
+    }
+
+    .achievement-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .achievement-title {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .achievement-details {
+      font-size: 0.9em;
+      color: #777;
+    }
     </style>
 </head>
 <body>
@@ -832,12 +878,37 @@ table tr:hover {
         </div>
     </div>
 
-    <div id="achievements-container" class="content-section">
-        <div class="card">
-            <h2>Achievements</h2>
-            <p>List of achievements.</p>
+    <div class="achievements-container">
+        <h2>My Achievements</h2>
+        <div class="achievement">
+          <div class="achievement-icon">🏅</div>
+          <div class="achievement-content">
+            <div class="achievement-title">Gold Medal</div>
+            <div class="achievement-details">State Championship 2024</div>
+          </div>
         </div>
-    </div>
+        <div class="achievement">
+          <div class="achievement-icon">🏆</div>
+          <div class="achievement-content">
+            <div class="achievement-title">MVP Award</div>
+            <div class="achievement-details">Regional League 2024</div>
+          </div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-icon">🎖️</div>
+          <div class="achievement-content">
+            <div class="achievement-title">Top Scorer</div>
+            <div class="achievement-details">National Finals 2023</div>
+          </div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-icon">🥇</div>
+          <div class="achievement-content">
+            <div class="achievement-title">Best Player</div>
+            <div class="achievement-details">District Tournament 2023</div>
+          </div>
+        </div>
+      </div>
 
     <div id="performance-container" class="content-section">
         <div class="card">
