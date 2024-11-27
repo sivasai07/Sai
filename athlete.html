@@ -246,6 +246,15 @@
                 grid-column: 1 / -1;
             }
         }
+
+        /* Initially hide all sections except profile */
+        .content-section {
+            display: none;
+        }
+
+        .active-section {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -258,146 +267,114 @@
     </div>
 
     <nav class="nav-links">
-        <a href="#" class="nav-link active">
+        <a href="#" class="nav-link" onclick="showSection('profile-container')">
             <i class="fas fa-user"></i>
             <span>My Profile</span>
         </a>
-        <a href="#" class="nav-link">
+        <a href="#" class="nav-link" onclick="showSection('events-container')">
             <i class="fas fa-calendar-alt"></i>
             <span>Events</span>
         </a>
-        <a href="#" class="nav-link">
+        <a href="#" class="nav-link" onclick="showSection('team-container')">
             <i class="fas fa-users"></i>
             <span>My Team</span>
         </a>
-        <a href="#" class="nav-link">
+        <a href="#" class="nav-link" onclick="showSection('achievements-container')">
             <i class="fas fa-trophy"></i>
             <span>Achievements</span>
         </a>
-        <a href="#" class="nav-link">
+        <a href="#" class="nav-link" onclick="showSection('performance-container')">
             <i class="fas fa-chart-line"></i>
             <span>Performance</span>
         </a>
-        <a href="#" class="nav-link">
+        <a href="#" class="nav-link" onclick="showSection('communication-container')">
             <i class="fas fa-comments"></i>
             <span>Communication</span>
         </a>
-        <a href="#" class="nav-link">
+        <a href="#" class="nav-link" onclick="showSection('notifications-container')">
             <i class="fas fa-bell"></i>
             <span>Notifications</span>
-        </a>
-        <a href="#" class="nav-link">
-            <i class="fas fa-cog"></i>
-            <span>Settings</span>
         </a>
     </nav>
 </aside>
 
 <header>
     <h1>Elite Athlete Dashboard</h1>
-    <div class="header-actions">
-        <div class="notification-badge">
-            <i class="fas fa-bell fa-lg"></i>
-            <span class="badge">3</span>
-        </div>
+    <div class="notification-badge">
+        <i class="fas fa-bell"></i>
+        <div class="badge">5</div>
     </div>
 </header>
 
 <main>
-    <div class="card">
-        <div class="card-header">
-            <h3>Upcoming Events</h3>
-            <i class="fas fa-ellipsis-v"></i>
-        </div>
-        <div class="event-list">
-            <div class="event-item">
-                <div class="event-date">
-                    <div>DEC</div>
-                    <div>15</div>
-                </div>
-                <div>
-                    <h4>Regional Championship</h4>
-                    <p>Olympic Stadium • 2:00 PM</p>
-                </div>
-            </div>
-            <div class="event-item">
-                <div class="event-date">
-                    <div>DEC</div>
-                    <div>20</div>
-                </div>
-                <div>
-                    <h4>Training Camp</h4>
-                    <p>Sports Complex • 9:00 AM</p>
-                </div>
-            </div>
-        </div>
-        <div class="action-buttons">
-            <button class="btn" onclick="handleEvent('create')">Create Event</button>
-            <button class="btn" onclick="handleEvent('edit')">Edit Event</button>
+    <div id="profile-container" class="content-section active-section">
+        <div class="card">
+            <h2>My Profile</h2>
+            <p>Information about the athlete.</p>
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-header">
-            <h3>Recent Achievements</h3>
-            <i class="fas fa-ellipsis-v"></i>
-        </div>
-        <div class="event-list">
-            <div class="event-item">
-                <i class="fas fa-medal fa-2x" style="color: var(--primary)"></i>
-                <div>
-                    <h4>Gold Medal</h4>
-                    <p>State Championship 2024</p>
-                </div>
-            </div>
-            <div class="event-item">
-                <i class="fas fa-trophy fa-2x" style="color: var(--primary)"></i>
-                <div>
-                    <h4>MVP Award</h4>
-                    <p>Regional League 2024</p>
+    <div id="events-container" class="content-section">
+        <div class="card">
+            <h2>Upcoming Events</h2>
+            <div class="event-list">
+                <div class="event-item">
+                    <div class="event-date">12/12/2024</div>
+                    <div class="event-name">Event 1</div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div id="team-container" class="content-section">
+        <div class="card">
+            <h2>My Team</h2>
+            <p>Details about the team.</p>
+        </div>
+    </div>
+
+    <div id="achievements-container" class="content-section">
+        <div class="card">
+            <h2>Achievements</h2>
+            <p>List of achievements.</p>
+        </div>
+    </div>
+
+    <div id="performance-container" class="content-section">
+        <div class="card">
+            <h2>Performance</h2>
+            <p>Details of performance stats.</p>
+        </div>
+    </div>
+
+    <div id="communication-container" class="content-section">
+        <div class="card">
+            <h2>Communication</h2>
+            <p>Messages and notifications.</p>
+        </div>
+    </div>
+
+    <div id="notifications-container" class="content-section">
+        <div class="card">
+            <h2>Notifications</h2>
+            <p>Latest updates and notifications.</p>
+        </div>
+    </div>
 </main>
 
 <footer>
-    <p>&copy; 2024 Elite Athlete Dashboard. All rights reserved.</p>
+    <p>&copy; 2024 Elite Athlete Dashboard</p>
 </footer>
 
 <script>
-    // Handle Events
-    function handleEvent(type) {
-        const actions = {
-            create: "Creating new event...",
-            edit: "Editing event...",
-            delete: "Deleting event..."
-        };
-        alert(actions[type]);
+    function showSection(sectionId) {
+        // Hide all sections
+        const sections = document.querySelectorAll('.content-section');
+        sections.forEach(section => section.classList.remove('active-section'));
+
+        // Show the selected section
+        document.getElementById(sectionId).classList.add('active-section');
     }
-
-    // Handle Navigation
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            document.querySelector('.nav-link.active').classList.remove('active');
-            e.currentTarget.classList.add('active');
-        });
-    });
-
-    // Handle Notifications
-    document.querySelector('.notification-badge').addEventListener('click', () => {
-        alert('Notifications: \n1. New message from coach\n2. Upcoming event reminder\n3. Performance report available');
-    });
-     const username = sessionStorage.getItem("username");
-
-        if (username) {
-            // Display the username on the admin page
-            document.getElementById("usernameDisplay").textContent = ${username};
-        } else {
-            // If username is not found (user is not logged in), redirect to login page
-            window.location.href = "index.html";
-        }
 </script>
 </body>
-</html>c
+</html>
