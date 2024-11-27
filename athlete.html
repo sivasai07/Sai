@@ -366,19 +366,149 @@ form {
     cursor: pointer;
 }
 /* ----------------------------------events */
-.register-btn {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+
+#events-list-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Search Bar */
+        .search-bar {
+            margin-bottom: 15px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* Event List */
+        .event-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+            gap: 20px;
+            max-height: 500px; /* Limit height for scrolling */
+            overflow-y: auto; /* Only vertical scrolling */
+        }
+
+        /* Event Card */
+        .event-card {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .event-content {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .event-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .event-details {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .register-btn {
+            padding: 8px;
+            text-align: center;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: auto;
+            align-self: center;
+            width: 80%;
+        }
+
+        .register-btn:hover {
+            background-color: #218838;
+        }
+        /* Applied Events */
+        .tabs {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
 }
 
-.register-btn:hover {
-    background-color: #2980b9;
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    color: #666;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+.tab.active {
+    color: #4a90e2;
+    border-bottom: 2px solid #4a90e2;
+}
+
+.tab:hover {
+    color: #4a90e2;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
 }
     </style>
 </head>
@@ -400,10 +530,15 @@ form {
             <i class="fas fa-calendar-alt"></i>
             <span>Events</span>
         </a>
+
+        <a href="#" class="nav-link" onclick="showSection('appliedevents-container')">
+            <i class="fas fa-calendar-check"></i>
+            <span>Applied Events</span>
         <a href="#" class="nav-link" onclick="showSection('team-container')">
             <i class="fas fa-users"></i>
             <span>My Team</span>
         </a>
+        
         <a href="#" class="nav-link" onclick="showSection('achievements-container')">
             <i class="fas fa-trophy"></i>
             <span>Achievements</span>
@@ -412,9 +547,6 @@ form {
             <i class="fas fa-chart-line"></i>
             <span>Performance</span>
         </a>
-        <a href="#" class="nav-link" onclick="showSection('communication-container')">
-            <i class="fas fa-comments"></i>
-            <span>Communication</span>
         </a>
         <a href="#" class="nav-link" onclick="showSection('notifications-container')">
             <i class="fas fa-bell"></i>
@@ -483,39 +615,220 @@ form {
             </form>
         </div>
     </div>
-    <div id="events-container" class="content-section">
-        <div class="event-list">
+     <!-- Events List Section -->
+     <div id="events-list-container">
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="search-bar" placeholder="Search events by name...">
+        </div>
+
+        <!-- Event List -->
+        <div class="event-list" id="event-list">
             <!-- Event 1 -->
-            <div class="card">
-                <h3 class="event-date">National Cricket Championship</h3>
-                <p><strong>Venue: </strong> Chepauk</p>
-                <div >December 12, 2024</div>
-                <p>Cheer for your favorite teams in this thrilling championship finale!</p>
-                <button class="register-btn">Register</button>
+            <div class="event-card" data-title="National Cricket Championship">
+                <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">National Cricket Championship</h3>
+                    <p class="event-details"><strong>Venue:</strong> Chepauk</p>
+                    <p class="event-details">Date: December 12, 2024</p>
+                    <button class="register-btn">Register</button>
+                </div>
             </div>
+
             <!-- Event 2 -->
-            <div class="card">
-                <h3 class="event-date">National Football League</h3>
-                <p><strong>Venue: </strong> Qatar Stadium Arena</p>
-                <div>December 15, 2024</div>
-                <p>Join runners from around the world to support local charities. </p>
-                <button class="register-btn">Register</button>
+            <div class="event-card" data-title="National Football League">
+                <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">National Football League</h3>
+                    <p class="event-details"><strong>Venue:</strong> Qatar Stadium Arena</p>
+                    <p class="event-details">Date: December 15, 2024</p>
+                    <button class="register-btn">Register</button>
+                </div>
             </div>
+
             <!-- Event 3 -->
-            <div class="card">
-                <h3 class="event-date">Marathon for a Cause</h3>
-                <p><strong>Venue: </strong> Downtown Streets</p>
-                <div>December 20, 2024</div>
-                <p>Catch the top two teams competing for the ultimate title.</p>
-                <button class="register-btn">Register</button>
+            <div class="event-card" data-title="Marathon for a Cause">
+                <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">Marathon for a Cause</h3>
+                    <p class="event-details"><strong>Venue:</strong> Downtown Streets</p>
+                    <p class="event-details">Date: December 20, 2024</p>
+                    <button class="register-btn">Register</button>
+                </div>
+            </div>
+
+            <!-- Event 4 -->
+            <div class="event-card" data-title="City Marathon">
+                <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">City Marathon</h3>
+                    <p class="event-details"><strong>Venue:</strong> Central Park</p>
+                    <p class="event-details">Date: January 5, 2025</p>
+                    <button class="register-btn">Register</button>
+                </div>
+            </div>
+
+            <!-- Event 5 -->
+            <div class="event-card" data-title="Golden Run">
+                <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">Golden Run</h3>
+                    <p class="event-details"><strong>Venue:</strong> Olympic Arena</p>
+                    <p class="event-details">Date: February 2, 2025</p>
+                    <button class="register-btn">Register</button>
+                </div>
+            </div>
+
+            <!-- Event 6 -->
+            <div class="event-card" data-title="Spring Dash">
+                <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">Spring Dash</h3>
+                    <p class="event-details"><strong>Venue:</strong> Riverside Track</p>
+                    <p class="event-details">Date: March 15, 2025</p>
+                    <button class="register-btn">Register</button>
+                </div>
+            </div>
+
+            <!-- Event 7 -->
+            <div class="event-card" data-title="Night Race">
+                <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">Night Race</h3>
+                    <p class="event-details"><strong>Venue:</strong> Urban Stadium</p>
+                    <p class="event-details">Date: March 30, 2025</p>
+                    <button class="register-btn">Register</button>
+                </div>
+            </div>
+
+            <!-- Event 8 -->
+            <div class="event-card" data-title="Himalayan Trek Challenge">
+                <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">Himalayan Trek Challenge</h3>
+                    <p class="event-details"><strong>Venue:</strong> Himalayan Basecamp</p>
+                    <p class="event-details">Date: April 10, 2025</p>
+                    <button class="register-btn">Register</button>
+                </div>
+            </div>
+
+            <!-- Event 9 -->
+            <div class="event-card" data-title="River Run">
+                <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-content">
+                    <h3 class="event-title">River Run</h3>
+                    <p class="event-details"><strong>Venue:</strong> Riverside</p>
+                    <p class="event-details">Date: May 5, 2025</p>
+                    <button class="register-btn">Register</button>
+                </div>
             </div>
         </div>
     </div>
 
+    <div id="appliedevents-container" class="content-section">
+        <div class="card">
+            <h2>My Events</h2>
+            <p>Applied events</p>
+            <div class="tabs">
+                <button class="tab active" onclick="filterEvents('all')">Overview</button>
+                <button class="tab" onclick="filterEvents('PENDING')">Pending</button>
+                <button class="tab" onclick="filterEvents('APPROVED')">Approved</button>
+                <button class="tab" onclick="filterEvents('REJECTED')">Rejected</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>EVENT ID</th>
+                            <th>EVENT NAME</th>
+                            <th>CATEGORY</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventTableBody">
+                        <tr data-status="PENDING">
+                            <td>E_00007</td>
+                            <td>Discus Force Throw</td>
+                            <td>Throw</td>
+                            <td>PENDING</td>
+                        </tr>
+                        <tr data-status="PENDING">
+                            <td>E_00006</td>
+                            <td>Relay Champ 4x100m</td>
+                            <td>4x100m</td>
+                            <td>PENDING</td>
+                        </tr>
+                        <tr data-status="APPROVED">
+                            <td>E_00005</td>
+                            <td>Rapid Dash</td>
+                            <td>100m</td>
+                            <td>APPROVED</td>
+                        </tr>
+                        <tr data-status="REJECTED">
+                            <td>E_00004</td>
+                            <td>Vault King Pole Vault</td>
+                            <td>10M</td>
+                            <td>REJECTED</td>
+                        </tr>
+                        <tr data-status="APPROVED">
+                            <td>E_00003</td>
+                            <td>High Jump Masters</td>
+                            <td>High Jump</td>
+                            <td>APPROVED</td>
+                        </tr>
+                        <tr data-status="PENDING">
+                            <td>E_00002</td>
+                            <td>Long Jump Leap</td>
+                            <td>Long Jump</td>
+                            <td>PENDING</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <div id="team-container" class="content-section">
         <div class="card">
-            <h2>My Team</h2>
-            <p>Details about the team.</p>
+            <h2>Teams</h2>
+            <p>Details about the teams.</p>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Team Name</th>
+                            <th>Coach</th>
+                            <th>Members</th>
+                            <th>Performance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Thunderbolts</td>
+                            <td>John Smith</td>
+                            <td>12</td>
+                            <td>Excellent</td>
+                        </tr>
+                        <tr>
+                            <td>Warriors</td>
+                            <td>Emily Davis</td>
+                            <td>10</td>
+                            <td>Good</td>
+                        </tr>
+                        <tr>
+                            <td>Falcons</td>
+                            <td>Michael Brown</td>
+                            <td>15</td>
+                            <td>Outstanding</td>
+                        </tr>
+                        <tr>
+                            <td>Titans</td>
+                            <td>Susan Taylor</td>
+                            <td>8</td>
+                            <td>Average</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -530,13 +843,38 @@ form {
         <div class="card">
             <h2>Performance</h2>
             <p>Details of performance stats.</p>
-        </div>
-    </div>
-
-    <div id="communication-container" class="content-section">
-        <div class="card">
-            <h2>Communication</h2>
-            <p>Messages and notifications.</p>
+    
+            <h3>Top Performances</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Meet Name</th>
+                        <th>Event Name</th>
+                        <th>Score</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody id="top-performances">
+                    <!-- Top performances will be added here -->
+                </tbody>
+            </table>
+    
+            <h3>Performance Results</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Meet Name</th>
+                        <th>Event Name</th>
+                        <th>Category</th>
+                        <th>Venue</th>
+                        <th>Score</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody id="performance-results">
+                    <!-- Performance results will be added here -->
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -561,6 +899,74 @@ form {
         // Show the selected section
         document.getElementById(sectionId).classList.add('active-section');
     }
+            // JavaScript for Event Search
+            document.getElementById('search-bar').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const events = document.querySelectorAll('.event-card');
+
+            events.forEach(event => {
+                const title = event.getAttribute('data-title').toLowerCase();
+                if (title.includes(query)) {
+                    event.style.display = 'block';
+                } else {
+                    event.style.display = 'none';
+                }
+            });
+        });
+        function filterEvents(status) {
+    const rows = document.querySelectorAll('#eventTableBody tr');
+    const tabs = document.querySelectorAll('.tab');
+
+    // Update active tab
+    tabs.forEach(tab => tab.classList.remove('active'));
+    const activeTab = [...tabs].find(tab => tab.textContent.toLowerCase() === status.toLowerCase() || status === 'all');
+    if (activeTab) activeTab.classList.add('active');
+
+    // Show or hide rows based on the selected status
+    rows.forEach(row => {
+        if (status === 'all' || row.dataset.status === status) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+const topPerformances = [
+        { meet: "Lightning Bolt Championships", event: "Discus Throw", score: 100, remarks: "Excellent" },
+        { meet: "World Athletics Meet", event: "Javelin Throw", score: 98, remarks: "Great" },
+        { meet: "Summer Games", event: "Shot Put", score: 95, remarks: "Good" },
+        { meet: "National Trials", event: "Hammer Throw", score: 92, remarks: "Good" }
+    ];
+
+    const performanceResults = [
+        { meet: "Lightning Bolt Championships", event: "Discus Throw", category: "Throw", venue: "Paris", score: 100, remarks: "Excellent" },
+        { meet: "World Athletics Meet", event: "Javelin Throw", category: "Throw", venue: "London", score: 98, remarks: "Great" },
+        { meet: "Summer Games", event: "Shot Put", category: "Throw", venue: "Tokyo", score: 95, remarks: "Good" },
+        { meet: "National Trials", event: "Hammer Throw", category: "Throw", venue: "Berlin", score: 92, remarks: "Good" },
+        { meet: "Winter Sports Meet", event: "Weight Throw", category: "Throw", venue: "Oslo", score: 90, remarks: "Good" },
+        { meet: "Continental Games", event: "Discus Throw", category: "Throw", venue: "Madrid", score: 88, remarks: "Average" },
+        { meet: "Regional Meet", event: "Javelin Throw", category: "Throw", venue: "Rome", score: 85, remarks: "Average" },
+        { meet: "City Sports Day", event: "Shot Put", category: "Throw", venue: "Athens", score: 80, remarks: "Fair" }
+    ];
+
+    // Function to populate table rows
+    function populateTable(data, tableId) {
+        const tableBody = document.getElementById(tableId);
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            Object.values(item).forEach(value => {
+                const cell = document.createElement('td');
+                cell.textContent = value;
+                row.appendChild(cell);
+            });
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Populate tables
+    populateTable(topPerformances, 'top-performances');
+    populateTable(performanceResults, 'performance-results');
+
 </script>
 </body>
 </html>
