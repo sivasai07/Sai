@@ -255,6 +255,131 @@
         .active-section {
             display: block;
         }
+        /* -----------------------------------profile */
+        .content-section {
+    margin: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    margin-bottom: 10px;
+    color: #4A00E0;
+}
+
+.card p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.profile-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-picture {
+    text-align: center;
+}
+
+.picture-placeholder {
+    width: 150px;
+    height: 150px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #555;
+}
+.change-picture-btn {
+    background-color: #4A00E0;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.change-picture-btn:hover {
+    background-color: #3700b3;
+}
+.personal-info p {
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Edit Profile Form */
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row label {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-row input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-actions {
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.save-btn {
+    background: #4A00E0;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: #ccc;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* ----------------------------------events */
+.register-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-btn:hover {
+    background-color: #2980b9;
+}
     </style>
 </head>
 <body>
@@ -308,20 +433,81 @@
 
 <main>
     <div id="profile-container" class="content-section active-section">
+        <!-- My Profile Section -->
         <div class="card">
             <h2>My Profile</h2>
             <p>Information about the athlete.</p>
+            <div class="profile-content">
+                <div class="profile-picture">
+                    <div class="picture-placeholder">150 x 150</div>
+                    <button class="change-picture-btn">Change Picture</button>
+                </div>
+                <div class="personal-info">
+                    <p><strong>Name:</strong> Athlete Name</p>
+                    <p><strong>Email:</strong> athlete@example.com</p>
+                    <p><strong>Role:</strong> Player</p>
+                    <p><strong>Phone:</strong> +1-234-567-890</p>
+                    <p><strong>Joined:</strong> January 15, 2022</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Profile Section -->
+        <div class="card">
+            <h2>Edit Profile</h2>
+            <form>
+                <div class="form-row">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" value="Athlete">
+                </div>
+                <div class="form-row">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" value="Name">
+                </div>
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" value="athlete@example.com">
+                </div>
+                <div class="form-row">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" value="+1-234-567-890">
+                </div>
+                <div class="form-row">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter new password">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">Save Changes</button>
+                    <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
-
     <div id="events-container" class="content-section">
-        <div class="card">
-            <h2>Upcoming Events</h2>
-            <div class="event-list">
-                <div class="event-item">
-                    <div class="event-date">12/12/2024</div>
-                    <div class="event-name">Event 1</div>
-                </div>
+        <div class="event-list">
+            <!-- Event 1 -->
+            <div class="card">
+                <h3 class="event-date">National Cricket Championship</h3>
+                <p><strong>Venue: </strong> Chepauk</p>
+                <div >December 12, 2024</div>
+                <p>Cheer for your favorite teams in this thrilling championship finale!</p>
+                <button class="register-btn">Register</button>
+            </div>
+            <!-- Event 2 -->
+            <div class="card">
+                <h3 class="event-date">National Football League</h3>
+                <p><strong>Venue: </strong> Qatar Stadium Arena</p>
+                <div>December 15, 2024</div>
+                <p>Join runners from around the world to support local charities. </p>
+                <button class="register-btn">Register</button>
+            </div>
+            <!-- Event 3 -->
+            <div class="card">
+                <h3 class="event-date">Marathon for a Cause</h3>
+                <p><strong>Venue: </strong> Downtown Streets</p>
+                <div>December 20, 2024</div>
+                <p>Catch the top two teams competing for the ultimate title.</p>
+                <button class="register-btn">Register</button>
             </div>
         </div>
     </div>
