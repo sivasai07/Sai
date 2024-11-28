@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -321,6 +322,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
+            object-fit: contain;
         }
 
         .change-picture-btn:hover {
@@ -475,7 +477,20 @@
         .register-btn:hover {
             background-color: #218838;
         }
-
+        aside {
+            width: 20%;
+            float: left;
+            height: 100vh;
+            position: fixed;
+        }
+        aside .profile-section {
+            text-align: center;
+        }
+        aside img {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+        }
         /* Applied Events */
         .tabs {
             display: flex;
@@ -584,9 +599,9 @@
     <aside class="sidebar">
         <div class="profile-section">
             <div class="profile-image">
-                <img src="/api/placeholder/120/120" alt="Athlete Profile">
+                <img src="msd.jpg" alt="Athlete Profile">
             </div>
-            <h1 id="usernameDisplay"></h1>
+            <h1 id="usernameDisplay">Elite Athlete</h1>
         </div>
 
         <nav class="nav-links">
@@ -598,23 +613,17 @@
                 <i class="fas fa-calendar-alt"></i>
                 <span>Events</span>
             </a>
-
-            <a href="#" class="nav-link" onclick="showSection('appliedevents-container')">
-                <i class="fas fa-calendar-check"></i>
-                <span>Applied Events</span>
-                <a href="#" class="nav-link" onclick="showSection('team-container')">
-                    <i class="fas fa-users"></i>
-                    <span>My Team</span>
-                </a>
-
-                <a href="#" class="nav-link" onclick="showSection('achievements-container')">
-                    <i class="fas fa-trophy"></i>
-                    <span>Achievements</span>
-                </a>
-                <a href="#" class="nav-link" onclick="showSection('performance-container')">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Performance</span>
-                </a>
+            <a href="#" class="nav-link" onclick="showSection('team-container')">
+                <i class="fas fa-users"></i>
+                <span>My Team</span>
+            </a>
+            <a href="#" class="nav-link" onclick="showSection('achievements-container')">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="#" class="nav-link" onclick="showSection('performance-container')">
+                <i class="fas fa-chart-line"></i>
+                <span>Performance</span>
             </a>
             <a href="#" class="nav-link" onclick="showSection('notifications-container')">
                 <i class="fas fa-bell"></i>
@@ -632,14 +641,45 @@
     </header>
 
     <main>
-        <div id="profile-container" class="content-section active-section">
-            <!-- My Profile Section -->
+        <!-- Default Section (Similar to First Image) -->
+        <div id="default-container" class="content-section default-section">
+            <div class="section-layout">
+                <!-- Upcoming Events -->
+                <div class="events-container">
+                    <h2>Upcoming Events</h2>
+                    <div class="event">
+                        <p><strong>Dec 15:</strong> Regional Championship - Olympic Stadium - 2:00 PM</p>
+                    </div>
+                    <div class="event">
+                        <p><strong>Dec 20:</strong> Training Camp - Sports Complex - 9:00 AM</p>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn">Create Event</button>
+                        <button class="btn secondary">List Event</button>
+                    </div>
+                </div>
+
+                <!-- Recent Achievements -->
+                <div class="achievements-container">
+                    <h2>Recent Achievements</h2>
+                    <div class="achievement">
+                        <p><strong>Gold Medal:</strong> State Championship 2024</p>
+                    </div>
+                    <div class="achievement">
+                        <p><strong>MVP Award:</strong> Regional League 2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Profile Section -->
+        <div id="profile-container" class="content-section">
             <div class="card">
                 <h2>My Profile</h2>
                 <p>Information about the athlete.</p>
                 <div class="profile-content">
                     <div class="profile-picture">
-                        <div class="picture-placeholder">150 x 150</div>
+                        <img src="vk.jpg" class="picture-placeholder"/>
                         <button class="change-picture-btn">Change Picture</button>
                     </div>
                     <div class="personal-info">
@@ -693,7 +733,7 @@
             <div class="event-list" id="event-list">
                 <!-- Event 1 -->
                 <div class="event-card" data-title="National Cricket Championship">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                    <img src="Ncc.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">National Cricket Championship</h3>
                         <p class="event-details"><strong>Venue:</strong> Chepauk</p>
@@ -704,7 +744,7 @@
             
                 <!-- Event 2 -->
                 <div class="event-card" data-title="National Football League">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                    <img src="Nfl.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">National Football League</h3>
                         <p class="event-details"><strong>Venue:</strong> Qatar Stadium Arena</p>
@@ -715,7 +755,7 @@
 
                 <!-- Event 3 -->
                 <div class="event-card" data-title="Marathon for a Cause">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                    <img src="Mfc.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">Marathon for a Cause</h3>
                         <p class="event-details"><strong>Venue:</strong> Downtown Streets</p>
@@ -726,7 +766,7 @@
 
                 <!-- Event 4 -->
                 <div class="event-card" data-title="City Marathon">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                    <img src="Cm.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">City Marathon</h3>
                         <p class="event-details"><strong>Venue:</strong> Central Park</p>
@@ -736,32 +776,32 @@
                 </div>
 
                 <!-- Event 5 -->
-                <div class="event-card" data-title="Golden Run">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-card" data-title="Kabaddi Tournament">
+                    <img src="pkl.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
-                        <h3 class="event-title">Golden Run</h3>
-                        <p class="event-details"><strong>Venue:</strong> Olympic Arena</p>
+                        <h3 class="event-title">Kabaddi</h3>
+                        <p class="event-details"><strong>Venue:</strong> Gachibowli Indoor Stadium</p>
                         <p class="event-details">Date: February 2, 2025</p>
                         <button class="register-btn">Register</button>
                     </div>
                 </div>
 
                 <!-- Event 6 -->
-                <div class="event-card" data-title="Spring Dash">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-card" data-title="Spring Relay">
+                    <img src="relay.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
-                        <h3 class="event-title">Spring Dash</h3>
-                        <p class="event-details"><strong>Venue:</strong> Riverside Track</p>
+                        <h3 class="event-title">Spring Relay</h3>
+                        <p class="event-details"><strong>Venue:</strong> Olympic Arena</p>
                         <p class="event-details">Date: March 15, 2025</p>
                         <button class="register-btn">Register</button>
                     </div>
                 </div>
 
                 <!-- Event 7 -->
-                <div class="event-card" data-title="Night Race">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-card" data-title="Basket Ball Bash">
+                    <img src="bb.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
-                        <h3 class="event-title">Night Race</h3>
+                        <h3 class="event-title">Basket Ball Bash</h3>
                         <p class="event-details"><strong>Venue:</strong> Urban Stadium</p>
                         <p class="event-details">Date: March 30, 2025</p>
                         <button class="register-btn">Register</button>
@@ -770,7 +810,7 @@
 
                 <!-- Event 8 -->
                 <div class="event-card" data-title="Himalayan Trek Challenge">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                    <img src="trek.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">Himalayan Trek Challenge</h3>
                         <p class="event-details"><strong>Venue:</strong> Himalayan Basecamp</p>
@@ -780,8 +820,8 @@
                 </div>
 
                 <!-- Event 9 -->
-                <div class="event-card" data-title="River Run">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-card" data-title="River Boating">
+                    <img src="boat.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">River Run</h3>
                         <p class="event-details"><strong>Venue:</strong> Riverside</p>
@@ -856,41 +896,41 @@
         </div>
         <div id="team-container" class="content-section">
             <div class="card">
-                <h2>Teams</h2>
-                <p>Details about the teams.</p>
+                <h2>Team: Thunderbolts</h2>
+                <p>Details about the team members.</p>
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Team Name</th>
-                                <th>Coach</th>
-                                <th>Members</th>
+                                <th>Player Name</th>
+                                <th>Role</th>
+                                <th>Age</th>
                                 <th>Performance</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Thunderbolts</td>
-                                <td>John Smith</td>
-                                <td>12</td>
+                                <td>James Wilson</td>
+                                <td>Captain</td>
+                                <td>25</td>
                                 <td>Excellent</td>
                             </tr>
                             <tr>
-                                <td>Warriors</td>
-                                <td>Emily Davis</td>
-                                <td>10</td>
+                                <td>Sarah Johnson</td>
+                                <td>Forward</td>
+                                <td>23</td>
                                 <td>Good</td>
                             </tr>
                             <tr>
-                                <td>Falcons</td>
-                                <td>Michael Brown</td>
-                                <td>15</td>
+                                <td>Robert Brown</td>
+                                <td>Goalkeeper</td>
+                                <td>27</td>
                                 <td>Outstanding</td>
                             </tr>
                             <tr>
-                                <td>Titans</td>
-                                <td>Susan Taylor</td>
-                                <td>8</td>
+                                <td>Emily Clark</td>
+                                <td>Defender</td>
+                                <td>22</td>
                                 <td>Average</td>
                             </tr>
                         </tbody>
@@ -898,6 +938,7 @@
                 </div>
             </div>
         </div>
+        
         <div id="achievements-container" class="content-section">
             <h2>My Achievements</h2>
             <div class="achievement">
@@ -933,8 +974,8 @@
             <div class="card">
                 <h2>Performance</h2>
                 <p>Details of performance stats.</p>
-
                 <h3>Top Performances</h3>
+                <br>
                 <table>
                     <thead>
                         <tr>
@@ -948,8 +989,9 @@
                         <!-- Top performances will be added here -->
                     </tbody>
                 </table>
-
+                <hr><br>
                 <h3>Performance Results</h3>
+                <br>
                 <table>
                     <thead>
                         <tr>
@@ -984,11 +1026,21 @@
         function showSection(sectionId) {
             // Hide all sections
             const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => section.classList.remove('active-section'));
+            sections.forEach(section => section.classList.remove('active-section', 'default-section'));
 
             // Show the selected section
-            document.getElementById(sectionId).classList.add('active-section');
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.classList.add('active-section');
+            } else {
+                document.getElementById('default-container').classList.add('default-section');
+            }
         }
+
+        // Show the default section when no menu is clicked
+        window.onload = function () {
+            document.getElementById('default-container').classList.add('default-section');
+        };
         // JavaScript for Event Search
         document.getElementById('search-bar').addEventListener('input', function () {
             const query = this.value.toLowerCase();
@@ -1059,5 +1111,4 @@
 
     </script>
 </body>
-
 </html>
