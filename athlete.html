@@ -296,7 +296,44 @@
             align-items: center;
             gap: 20px;
         }
-
+        .profile-container {
+      max-width: 600px;
+      margin: 0 auto;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .hidden {
+      display: none;
+    }
+    .profile-image-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+    button, input[type="file"] {
+      margin-top: 10px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .btn-secondary {
+      background-color: #ddd;
+      color: black;
+    }
         .profile-picture {
             text-align: center;
         }
@@ -311,6 +348,7 @@
             justify-content: center;
             font-size: 14px;
             color: #555;
+            object-fit: cover;
         }
 
         .change-picture-btn {
@@ -494,12 +532,12 @@
         }
 
         .tab.active {
-            color: #4a90e2;
+           color: #4a90e2;
             border-bottom: 2px solid #4a90e2;
         }
 
         .tab:hover {
-            color: #4a90e2;
+            color: white;
         }
 
         .table-container {
@@ -707,12 +745,12 @@ button:active {
 
 <body>
     <aside class="sidebar">
-        <div class="profile-section">
+        <!--<div class="profile-section">
             <div class="profile-image">
-                <img src="/api/placeholder/120/120" alt="Athlete Profile">
+                <img src="msd.jpg" alt="Athlete Profile">
             </div>
             <h1 id="usernameDisplay"></h1>
-        </div>
+        </div>-->
 
         <nav class="nav-links">
             <a href="#" class="nav-link" onclick="showSection('profile-container')">
@@ -799,59 +837,43 @@ button:active {
                 </div>
               </div>
             </div>     
-        <div id="profile-container" class="content-section">
-            <!-- My Profile Section -->
-            <div class="card">
-                <h2>My Profile</h2>
-                <p>Information about the athlete.</p>
-                <div class="profile-content">
-                    <div class="profile-picture">
-                        <div class="picture-placeholder">150 x 150</div>
-                        <button class="change-picture-btn">Change Picture</button>
-                    </div>
-                    <div class="personal-info">
-                        <p><strong>Name:</strong> Athlete Name</p>
-                        <p><strong>Email:</strong> athlete@example.com</p>
-                        <p><strong>Role:</strong> Player</p>
-                        <p><strong>Phone:</strong> +1-234-567-890</p>
-                        <p><strong>Joined:</strong> January 15, 2022</p>
-                    </div>
+            <div class="profile-container">
+                <div id="profile-view">
+                  <h2>My Profile</h2>
+                  <p>Information about the athlete.</p>
+                  <div class="profile-image-container">
+                    <img src="msd.jpg" alt="Profile Picture" id="profile-picture">
+                    <!-- <button class="btn btn-primary" id="change-picture-btn">Change Picture</button> -->
+                  </div>
+                  <p><strong>Name:</strong> <span id="display-name">Athlete Name</span></p>
+                  <p><strong>Email:</strong> <span id="display-email">athlete@example.com</span></p>
+                  <p><strong>Role:</strong> Player</p>
+                  <p><strong>Phone:</strong> <span id="display-phone">+1-234-567-890</span></p>
+                  <p><strong>Joined:</strong> January 15, 2022</p>
+                  <br>
+                  <button class="btn btn-primary" id="edit-profile-btn">Edit Profile</button>
                 </div>
-            </div>
-
-            <!-- Edit Profile Section -->
-            <div class="card">
-                <h2>Edit Profile</h2>
-                <form>
-                    <div class="form-row">
-                        <label for="first-name">First Name</label>
-                        <input type="text" id="first-name" value="Athlete">
-                    </div>
-                    <div class="form-row">
-                        <label for="last-name">Last Name</label>
-                        <input type="text" id="last-name" value="Name">
-                    </div>
-                    <div class="form-row">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" value="athlete@example.com">
-                    </div>
-                    <div class="form-row">
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone" value="+1-234-567-890">
-                    </div>
-                    <div class="form-row">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter new password">
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="save-btn">Save Changes</button>
-                        <button type="button" class="cancel-btn">Cancel</button>
-                    </div>
-                </form>
-            </div>
+            
+                <div id="profile-edit" class="hidden">
+                  <h2>Edit Profile</h2>
+                  <label>First Name: <input type="text" id="edit-first-name" value="Athlete"></label><br><br>
+                  <label>Last Name: <input type="text" id="edit-last-name" value="Name"></label><br><br>
+                  <label>Email: <input type="email" id="edit-email" value="athlete@example.com"></label><br><br>
+                  <label>Phone: <input type="text" id="edit-phone" value="+1-234-567-890"></label><br><br>
+                  <label>Password: <input type="password" id="edit-password" placeholder="Enter new password"></label><br><br>
+                  <div id="picture-section" class="hidden">
+                    <label for="upload-picture">Upload Picture:</label>
+                    <input type="file" id="upload-picture" accept="image/*" capture="environment"><br><br>
+                    <button class="btn btn-primary" id="save-picture-btn">Save Picture</button>
+                    <button class="btn btn-secondary" id="cancel-picture-btn">Cancel</button>
+                  </div>
+                  <button class="btn btn-primary" id="save-changes-btn">Save Changes</button>
+                  <button class="btn btn-secondary" id="cancel-btn">Cancel</button>
+                </div>
+              </div>
         </div>
-        <!-- Events List Section -->
-        <div class="content-section" id="events-list-container">
+         <!-- Events List Section -->
+         <div class="content-section" id="events-list-container">
             <!-- Search Bar -->
             <div class="search-bar">
                 <input type="text" id="search-bar" placeholder="Search events by name...">
@@ -860,7 +882,7 @@ button:active {
             <div class="event-list" id="event-list">
                 <!-- Event 1 -->
                 <div class="event-card" data-title="National Cricket Championship">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                    <img src="Ncc.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">National Cricket Championship</h3>
                         <p class="event-details"><strong>Venue:</strong> Chepauk</p>
@@ -871,7 +893,7 @@ button:active {
             
                 <!-- Event 2 -->
                 <div class="event-card" data-title="National Football League">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                    <img src="Nfl.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">National Football League</h3>
                         <p class="event-details"><strong>Venue:</strong> Qatar Stadium Arena</p>
@@ -882,7 +904,7 @@ button:active {
 
                 <!-- Event 3 -->
                 <div class="event-card" data-title="Marathon for a Cause">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                    <img src="Mfc.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">Marathon for a Cause</h3>
                         <p class="event-details"><strong>Venue:</strong> Downtown Streets</p>
@@ -893,7 +915,7 @@ button:active {
 
                 <!-- Event 4 -->
                 <div class="event-card" data-title="City Marathon">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                    <img src="Cm.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">City Marathon</h3>
                         <p class="event-details"><strong>Venue:</strong> Central Park</p>
@@ -903,32 +925,32 @@ button:active {
                 </div>
 
                 <!-- Event 5 -->
-                <div class="event-card" data-title="Golden Run">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-card" data-title="Kabaddi Tournament">
+                    <img src="pkl.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
-                        <h3 class="event-title">Golden Run</h3>
-                        <p class="event-details"><strong>Venue:</strong> Olympic Arena</p>
+                        <h3 class="event-title">Kabaddi</h3>
+                        <p class="event-details"><strong>Venue:</strong> Gachibowli Indoor Stadium</p>
                         <p class="event-details">Date: February 2, 2025</p>
                         <button class="register-btn">Register</button>
                     </div>
                 </div>
 
                 <!-- Event 6 -->
-                <div class="event-card" data-title="Spring Dash">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-card" data-title="Spring Relay">
+                    <img src="relay.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
-                        <h3 class="event-title">Spring Dash</h3>
-                        <p class="event-details"><strong>Venue:</strong> Riverside Track</p>
+                        <h3 class="event-title">Spring Relay</h3>
+                        <p class="event-details"><strong>Venue:</strong> Olympic Arena</p>
                         <p class="event-details">Date: March 15, 2025</p>
                         <button class="register-btn">Register</button>
                     </div>
                 </div>
 
                 <!-- Event 7 -->
-                <div class="event-card" data-title="Night Race">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-card" data-title="Basket Ball Bash">
+                    <img src="bb.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
-                        <h3 class="event-title">Night Race</h3>
+                        <h3 class="event-title">Basket Ball Bash</h3>
                         <p class="event-details"><strong>Venue:</strong> Urban Stadium</p>
                         <p class="event-details">Date: March 30, 2025</p>
                         <button class="register-btn">Register</button>
@@ -937,7 +959,7 @@ button:active {
 
                 <!-- Event 8 -->
                 <div class="event-card" data-title="Himalayan Trek Challenge">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                    <img src="trek.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">Himalayan Trek Challenge</h3>
                         <p class="event-details"><strong>Venue:</strong> Himalayan Basecamp</p>
@@ -947,8 +969,8 @@ button:active {
                 </div>
 
                 <!-- Event 9 -->
-                <div class="event-card" data-title="River Run">
-                    <img src="https://via.placeholder.com/300x150" alt="Event Image" class="event-image">
+                <div class="event-card" data-title="River Boating">
+                    <img src="boat.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
                         <h3 class="event-title">River Run</h3>
                         <p class="event-details"><strong>Venue:</strong> Riverside</p>
@@ -1100,8 +1122,8 @@ button:active {
             <div class="card">
                 <h2>Performance</h2>
                 <p>Details of performance stats.</p>
-
                 <h3>Top Performances</h3>
+                <br>
                 <table>
                     <thead>
                         <tr>
@@ -1115,8 +1137,9 @@ button:active {
                         <!-- Top performances will be added here -->
                     </tbody>
                 </table>
-
+                <br><br>
                 <h3>Performance Results</h3>
+                <br>
                 <table>
                     <thead>
                         <tr>
@@ -1229,7 +1252,71 @@ const createEventButton = document.querySelector('.create-event-btn');
 const editEventButton = document.querySelector('.edit-event-btn');
 const eventsContainer = document.querySelector('#upcoming-events-container');
 
-// Event data
+const profileView = document.getElementById('profile-view');
+    const profileEdit = document.getElementById('profile-edit');
+    const changePictureBtn = document.getElementById('change-picture-btn');
+    const pictureSection = document.getElementById('picture-section');
+    const uploadPicture = document.getElementById('upload-picture');
+    const profilePicture = document.getElementById('profile-picture');
+    const savePictureBtn = document.getElementById('save-picture-btn');
+    const cancelPictureBtn = document.getElementById('cancel-picture-btn');
+    const editProfileBtn = document.getElementById('edit-profile-btn');
+    const saveChangesBtn = document.getElementById('save-changes-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+
+    const displayName = document.getElementById('display-name');
+    const displayEmail = document.getElementById('display-email');
+    const displayPhone = document.getElementById('display-phone');
+
+    const editFirstName = document.getElementById('edit-first-name');
+    const editLastName = document.getElementById('edit-last-name');
+    const editEmail = document.getElementById('edit-email');
+    const editPhone = document.getElementById('edit-phone');
+
+    // Toggle to edit profile view
+    editProfileBtn.addEventListener('click', () => {
+      profileView.classList.add('hidden');
+      profileEdit.classList.remove('hidden');
+    });
+
+    // Save profile changes
+    saveChangesBtn.addEventListener('click', () => {
+      displayName.textContent = `${editFirstName.value} ${editLastName.value}`;
+      displayEmail.textContent = editEmail.value;
+      displayPhone.textContent = editPhone.value;
+
+      profileEdit.classList.add('hidden');
+      profileView.classList.remove('hidden');
+    });
+
+    // Cancel profile changes
+    cancelBtn.addEventListener('click', () => {
+      profileEdit.classList.add('hidden');
+      profileView.classList.remove('hidden');
+    });
+
+    // Toggle picture section
+    changePictureBtn.addEventListener('click', () => {
+      pictureSection.classList.remove('hidden');
+    });
+
+    // Save picture changes
+    savePictureBtn.addEventListener('click', () => {
+      const file = uploadPicture.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          profilePicture.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+      pictureSection.classList.add('hidden');
+    });
+
+    // Cancel picture changes
+    cancelPictureBtn.addEventListener('click', () => {
+      pictureSection.classList.add('hidden');
+    });
 
     </script>
 </body>
