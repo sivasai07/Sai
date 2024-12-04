@@ -94,12 +94,26 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
+        /* Hover effect */
+        .nav-link:hover {
+            background-color: #007bff; /* Blue background on hover */
+            color: white; /* White text */
+            transition: background-color 0.3s ease;
+        }
 
-        .nav-link:hover,
+        /* Active state - blue background when clicked */
         .nav-link.active {
-            background: var(--gradient-1);
-            color: white;
-            transform: translateX(5px);
+            background-color: #007bff; /* Blue background */
+            color: white; /* White text */
+        }
+
+        /* Example content section */
+        .content-section {
+            display: none;
+        }
+        
+        .active-section {
+            display: block;
         }
 
         /* Header */
@@ -214,7 +228,6 @@
         .btn:hover {
             opacity: 0.9;
         }
-
         /* Footer */
         footer {
             grid-column: 2 / -1;
@@ -297,12 +310,27 @@
             gap: 20px;
         }
         .profile-container {
-      max-width: 600px;
+      max-width: 400px;
       margin: 0 auto;
       border: 1px solid #ddd;
-      padding: 20px;
-      border-radius: 8px;
+      padding: 15px;
+      border-radius: 5px;
     }
+    #profile-view{
+        display: flex;
+        flex-direction: column;
+        margin-left: 250px;
+        max-width: 800px;
+        max-height: 700px;
+        gap: 10px;
+    }
+    #profile-edit{
+        margin-top: 40px;
+        padding: 20px;
+        margin-left: 250px;
+        max-width: 600px;
+        max-height: 500px;
+    }    
     .hidden {
       display: none;
     }
@@ -311,7 +339,7 @@
       align-items: center;
       gap: 20px;
     }
-    img {
+    .img {
       border-radius: 50%;
       width: 100px;
       height: 100px;
@@ -327,12 +355,15 @@
       cursor: pointer;
     }
     .btn-primary {
+
+        width: 135px;
+        height: 40px;
       background-color: #4CAF50;
       color: white;
     }
     .btn-secondary {
-      background-color: #ddd;
-      color: black;
+      background-color:red;
+      color: white;
     }
         .profile-picture {
             text-align: center;
@@ -627,7 +658,24 @@
   width: 95%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+#athlete-header {
+            display: flex;
+            align-items: center; /* Align text and icon vertically */
+            justify-content: center;
+            margin: 20px 0;
+        }
 
+        #athlete-icon {
+            font-size: 60px;
+            margin-right: 10px; /* Space between icon and text */
+        }
+
+        #athlete-text {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333; /* Customize text color */
+        }
 h2 {
   color: #4a4a4a;
   font-size: 18px;
@@ -751,7 +799,10 @@ button:active {
             </div>
             <h1 id="usernameDisplay"></h1>
         </div>-->
-
+        <div id="athlete-header">
+            <i class="fas fa-running" id="athlete-icon"></i>
+            <div id="athlete-text">Athlete</div>
+        </div>
         <nav class="nav-links">
             <a href="#" class="nav-link" onclick="showSection('profile-container')">
                 <i class="fas fa-user"></i>
@@ -787,15 +838,77 @@ button:active {
     </aside>
 
     <header>
-        <h1>Elite Athlete Dashboard</h1>
+        <h1>Athlete</h1>
         <div class="notification-badge">
-            <i class="fas fa-bell"></i>
-            <div class="badge">5</div>
+            <i class="fas fa-bell" onclick="showSection('notifications-container')"></i>
+            <div class="badge" id="notifications-number">5</div>
         </div>
     </header>
 
     <main>
-            <div id="upcoming-events-container" class="content-section active-section">
+            <div id="appliedevents-container" class="content-section active-section">
+            <div class="card">
+                <h2>My Events</h2>
+                <p>Applied events</p>
+                <div class="tabs">
+                    <button class="tab active" onclick="filterEvents('all')">Overview</button>
+                    <button class="tab" onclick="filterEvents('PENDING')">Pending</button>
+                    <button class="tab" onclick="filterEvents('APPROVED')">Approved</button>
+                    <button class="tab" onclick="filterEvents('REJECTED')">Rejected</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>EVENT ID</th>
+                                <th>EVENT NAME</th>
+                                <th>CATEGORY</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventTableBody">
+                            <tr data-status="PENDING">
+                                <td>E_00007</td>
+                                <td>Discus Force Throw</td>
+                                <td>Throw</td>
+                                <td>PENDING</td>
+                            </tr>
+                            <tr data-status="PENDING">
+                                <td>E_00006</td>
+                                <td>Relay Champ 4x100m</td>
+                                <td>4x100m</td>
+                                <td>PENDING</td>
+                            </tr>
+                            <tr data-status="APPROVED">
+                                <td>E_00005</td>
+                                <td>Rapid Dash</td>
+                                <td>100m</td>
+                                <td>APPROVED</td>
+                            </tr>
+                            <tr data-status="REJECTED">
+                                <td>E_00004</td>
+                                <td>Vault King Pole Vault</td>
+                                <td>10M</td>
+                                <td>REJECTED</td>
+                            </tr>
+                            <tr data-status="APPROVED">
+                                <td>E_00003</td>
+                                <td>High Jump Masters</td>
+                                <td>High Jump</td>
+                                <td>APPROVED</td>
+                            </tr>
+                            <tr data-status="PENDING">
+                                <td>E_00002</td>
+                                <td>Long Jump Leap</td>
+                                <td>Long Jump</td>
+                                <td>PENDING</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+            <!--<div id="upcoming-events-container" class="content-section active-section">
               <h2>Upcoming Events</h2>
               <div class="event">
                 <div class="event-date">
@@ -819,7 +932,7 @@ button:active {
               </div>
             </div>
           
-            <!-- Recent Achievements Section -->
+            Recent Achievements Section 
             <div id="recent-achievements-container" class="active-section content-section">
               <h2>Recent Achievements</h2>
               <div class="achievement">
@@ -836,20 +949,25 @@ button:active {
                   <p>Regional League 2024</p>
                 </div>
               </div>
-            </div>     
-            <div class="profile-container">
+            </div>     -->
+            <div id="profile-container" class="content-section">
                 <div id="profile-view">
-                  <h2>My Profile</h2>
+                  <h1>My Profile</h1>
                   <p>Information about the athlete.</p>
                   <div class="profile-image-container">
-                    <img src="msd.jpg" alt="Profile Picture" id="profile-picture">
-                    <!-- <button class="btn btn-primary" id="change-picture-btn">Change Picture</button> -->
+                    <img src="beingspark.jpg" alt="Profile Picture" id="profile-picture">
+                    <br>
+                    <input type="file" id="change-picture-input" accept="image/*" style="display: none;"/>
+                    <button class="btn btn-primary" id="change-picture-btn">Change Picture</button>
                   </div>
                   <p><strong>Name:</strong> <span id="display-name">Athlete Name</span></p>
+                  <p><strong>Athlete Id:</strong> <span id="display-name">ss77</span></p>
                   <p><strong>Email:</strong> <span id="display-email">athlete@example.com</span></p>
+                  <p><strong>DoB:</strong> <span id="display-dob">07-07-1981</span></p>
                   <p><strong>Role:</strong> Player</p>
                   <p><strong>Phone:</strong> <span id="display-phone">+1-234-567-890</span></p>
-                  <p><strong>Joined:</strong> January 15, 2022</p>
+                  <p><strong>Height:</strong>170cm</p>
+                  <p><strong>Weight:</strong> <span id="display-weight">77kgs</span></p>
                   <br>
                   <button class="btn btn-primary" id="edit-profile-btn">Edit Profile</button>
                 </div>
@@ -858,15 +976,15 @@ button:active {
                   <h2>Edit Profile</h2>
                   <label>First Name: <input type="text" id="edit-first-name" value="Athlete"></label><br><br>
                   <label>Last Name: <input type="text" id="edit-last-name" value="Name"></label><br><br>
-                  <label>Email: <input type="email" id="edit-email" value="athlete@example.com"></label><br><br>
-                  <label>Phone: <input type="text" id="edit-phone" value="+1-234-567-890"></label><br><br>
-                  <label>Password: <input type="password" id="edit-password" placeholder="Enter new password"></label><br><br>
-                  <div id="picture-section" class="hidden">
-                    <label for="upload-picture">Upload Picture:</label>
-                    <input type="file" id="upload-picture" accept="image/*" capture="environment"><br><br>
-                    <button class="btn btn-primary" id="save-picture-btn">Save Picture</button>
-                    <button class="btn btn-secondary" id="cancel-picture-btn">Cancel</button>
-                  </div>
+                  <label> &nbsp;&nbsp;&nbsp;Email: &nbsp; &nbsp;&nbsp;&nbsp;<input type="email" id="edit-email" value="athlete@example.com"></label><br><br>
+                  <label> &nbsp;&nbsp;&nbsp;Phone:  &nbsp;&nbsp;&nbsp;<input type="text" id="edit-phone" value="+1-234-567-890"></label><br><br>
+                  <label>Password: &nbsp;<input type="password" id="edit-password" placeholder="Enter new password"></label><br><br>
+                   <div id="picture-section" class="hidden">
+                    <input type="file" id="change-picture-input" accept="image/*" style="display: none;"/>
+                    <button class="btn btn-primary" id="change-picture-btn" style="display: none;">Change Picture</button>
+                    <button class="btn btn-primary" id="save-picture-btn" style="display: none;">Save Picture</button>
+                    <button class="btn btn-secondary" id="cancel-picture-btn" style="display: none;">Cancel</button>
+                  </div> 
                   <button class="btn btn-primary" id="save-changes-btn">Save Changes</button>
                   <button class="btn btn-secondary" id="cancel-btn">Cancel</button>
                 </div>
@@ -874,6 +992,7 @@ button:active {
         </div>
          <!-- Events List Section -->
          <div class="content-section" id="events-list-container">
+            <h1>Events</h1><br>
             <!-- Search Bar -->
             <div class="search-bar">
                 <input type="text" id="search-bar" placeholder="Search events by name...">
@@ -981,68 +1100,7 @@ button:active {
                 </div>
             </div>
         </div>
-        <div id="appliedevents-container" class="content-section">
-            <div class="card">
-                <h2>My Events</h2>
-                <p>Applied events</p>
-                <div class="tabs">
-                    <button class="tab active" onclick="filterEvents('all')">Overview</button>
-                    <button class="tab" onclick="filterEvents('PENDING')">Pending</button>
-                    <button class="tab" onclick="filterEvents('APPROVED')">Approved</button>
-                    <button class="tab" onclick="filterEvents('REJECTED')">Rejected</button>
-                </div>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>EVENT ID</th>
-                                <th>EVENT NAME</th>
-                                <th>CATEGORY</th>
-                                <th>STATUS</th>
-                            </tr>
-                        </thead>
-                        <tbody id="eventTableBody">
-                            <tr data-status="PENDING">
-                                <td>E_00007</td>
-                                <td>Discus Force Throw</td>
-                                <td>Throw</td>
-                                <td>PENDING</td>
-                            </tr>
-                            <tr data-status="PENDING">
-                                <td>E_00006</td>
-                                <td>Relay Champ 4x100m</td>
-                                <td>4x100m</td>
-                                <td>PENDING</td>
-                            </tr>
-                            <tr data-status="APPROVED">
-                                <td>E_00005</td>
-                                <td>Rapid Dash</td>
-                                <td>100m</td>
-                                <td>APPROVED</td>
-                            </tr>
-                            <tr data-status="REJECTED">
-                                <td>E_00004</td>
-                                <td>Vault King Pole Vault</td>
-                                <td>10M</td>
-                                <td>REJECTED</td>
-                            </tr>
-                            <tr data-status="APPROVED">
-                                <td>E_00003</td>
-                                <td>High Jump Masters</td>
-                                <td>High Jump</td>
-                                <td>APPROVED</td>
-                            </tr>
-                            <tr data-status="PENDING">
-                                <td>E_00002</td>
-                                <td>Long Jump Leap</td>
-                                <td>Long Jump</td>
-                                <td>PENDING</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    
         <div id="team-container" class="content-section">
             <div class="card">
                 <h2>Teams</h2>
@@ -1172,13 +1230,26 @@ button:active {
 
     <script>
         function showSection(sectionId) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => section.classList.remove('active-section'));
-
-            // Show the selected section
-            document.getElementById(sectionId).classList.add('active-section');
+    // Hide all sections
+    const sections = document.querySelectorAll('.content-section');
+    sections.forEach(section => {
+        section.classList.remove('active-section'); // Remove active class
+    });
+    // Handle notifications specifically
+    if (sectionId === 'notifications-container') {
+        const notificationsNumber = document.getElementById('notifications-number');
+        if (notificationsNumber) {
+            notificationsNumber.innerHTML = 0; // Reset notification count
         }
+    }
+
+    // Show the selected section
+    const selectedSection = document.getElementById(sectionId);
+    if (selectedSection) {
+        selectedSection.classList.add('active-section');
+    }
+}
+
         // JavaScript for Event Search
         document.getElementById('search-bar').addEventListener('input', function () {
             const query = this.value.toLowerCase();
@@ -1278,7 +1349,23 @@ const profileView = document.getElementById('profile-view');
       profileView.classList.add('hidden');
       profileEdit.classList.remove('hidden');
     });
+        // Show the "Edit Profile" section and hide the "My Profile" view
+        editProfileBtn.addEventListener('click', () => {
+            profileView.style.display = 'none';  // Hide My Profile section
+            profileEdit.style.display = 'block'; // Show Edit Profile section
+        });
 
+        // Save changes and return to "My Profile" view
+        saveChangesBtn.addEventListener('click', () => {
+            profileView.style.display = 'block'; // Show My Profile section
+            profileEdit.style.display = 'none';  // Hide Edit Profile section
+        });
+
+        // Cancel editing and return to "My Profile" view without saving
+        cancelBtn.addEventListener('click', () => {
+            profileView.style.display = 'block'; // Show My Profile section
+            profileEdit.style.display = 'none';  // Hide Edit Profile section
+        });
     // Save profile changes
     saveChangesBtn.addEventListener('click', () => {
       displayName.textContent = `${editFirstName.value} ${editLastName.value}`;
@@ -1317,6 +1404,48 @@ const profileView = document.getElementById('profile-view');
     cancelPictureBtn.addEventListener('click', () => {
       pictureSection.classList.add('hidden');
     });
+//     document.getElementById('bell-icon').addEventListener('click', function () {
+//     const notificationsSection = document.getElementById('notifications-container');
+//     if (notificationsSection) {
+//         // Scroll to the Notifications section
+//         notificationsSection.scrollIntoView({ behavior: 'smooth' });
+
+//         // Optionally highlight the section
+//         notificationsSection.style.backgroundColor = '#f0f8ff'; // Light blue
+
+//         // Remove the highlight after a short delay
+//         setTimeout(() => {
+//             notificationsSection.style.backgroundColor = '';
+//         }, 2000);
+//     }
+// });
+// changing profile pic
+document.getElementById('change-picture-btn').addEventListener('click', function () {
+    // Trigger the hidden file input when the button is clicked
+    console.log("button clicked");
+    document.getElementById('change-picture-input').click();
+});
+
+document.getElementById('change-picture-input').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    console.log("File obtained");
+
+    if (file) {
+        // Validate file type
+        if (file) {
+            const reader = new FileReader();
+
+            // Load and preview the image
+            reader.onload = function (e) {
+                document.getElementById('profile-picture').src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please upload a valid image file.');
+        }
+    }
+});
 
     </script>
 </body>
