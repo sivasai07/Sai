@@ -103,10 +103,10 @@
 
         /* Active state - blue background when clicked */
         .nav-link.active {
-            background-color: #007bff; /* Blue background */
-            color: white; /* White text */
-        }
-
+    background-color: #007bff; /* Active background color */
+    color: white; /* Active text color */
+    font-weight: bold;
+}
         /* Example content section */
         .content-section {
             display: none;
@@ -451,7 +451,7 @@
 
         /* ----------------------------------events */
 
-        #events-list-container {
+        /* #events-list-container {
             width: 100%;
             max-width: 1000px;
             margin: 20px auto;
@@ -459,10 +459,10 @@
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+        } */
 
         /* Search Bar */
-        .search-bar {
+        /* .search-bar {
             margin-bottom: 15px;
         }
 
@@ -543,7 +543,7 @@
 
         .register-btn:hover {
             background-color: #218838;
-        }
+        } */
 
         /* Applied Events */
         .tabs {
@@ -787,6 +787,51 @@ button:active {
   margin: 5px 0 0;
   font-size: 14px;
 }
+/* --------------------------------- */
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+}
+
+.popup-buttons button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.popup-buttons button:hover {
+    opacity: 0.9;
+}
+
+.popup-buttons button:nth-child(1) {
+    background-color: red;
+    color: white;
+}
+
+.popup-buttons button:nth-child(2) {
+    background-color: gray;
+    color: white;
+}
 
     </style>
 </head>
@@ -804,35 +849,39 @@ button:active {
             <div id="athlete-text">Athlete</div>
         </div>
         <nav class="nav-links">
-            <a href="#" class="nav-link" onclick="showSection('profile-container')">
+            <a href="#" class="nav-link" onclick="activateLink(event); showSection('profile-container')">
                 <i class="fas fa-user"></i>
                 <span>My Profile</span>
             </a>
-            <a href="#" class="nav-link" onclick="showSection('events-list-container')">
+            <a href="#" class="nav-link" onclick="activateLink(event); showSection('events-list-container');">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Events</span>
             </a>
 
-            <a href="#" class="nav-link" onclick="showSection('appliedevents-container')">
+            <a href="#" class="nav-link" onclick="activateLink(event); showSection('appliedevents-container')">
                 <i class="fas fa-calendar-check"></i>
                 <span>Applied Events</span>
-                <a href="#" class="nav-link" onclick="showSection('team-container')">
+                <a href="#" class="nav-link" onclick="activateLink(event); showSection('team-container')">
                     <i class="fas fa-users"></i>
                     <span>My Team</span>
                 </a>
 
-                <a href="#" class="nav-link" onclick="showSection('achievements-container')">
+                <a href="#" class="nav-link" onclick="activateLink(event); showSection('achievements-container')">
                     <i class="fas fa-trophy"></i>
                     <span>Achievements</span>
                 </a>
-                <a href="#" class="nav-link" onclick="showSection('performance-container')">
+                <a href="#" class="nav-link" onclick="activateLink(event); showSection('performance-container')">
                     <i class="fas fa-chart-line"></i>
                     <span>Performance</span>
                 </a>
             </a>
-            <a href="#" class="nav-link" onclick="showSection('notifications-container')">
+            <a href="#" class="nav-link" onclick="activateLink(event); showSection('notifications-container')">
                 <i class="fas fa-bell"></i>
                 <span>Notifications</span>
+            </a>
+            <a href="#" class="nav-link" onclick="activateLink(event); showSection('logout-container');openLogoutPopup()">
+                <i class=""></i>
+                <span>Logout</span>
             </a>
         </nav>
     </aside>
@@ -840,7 +889,7 @@ button:active {
     <header>
         <h1>Athlete</h1>
         <div class="notification-badge">
-            <i class="fas fa-bell" onclick="showSection('notifications-container')"></i>
+            <i class="fas fa-bell" onclick="activateLink(event);showSection('notifications-container')"></i>
             <div class="badge" id="notifications-number">5</div>
         </div>
     </header>
@@ -991,15 +1040,14 @@ button:active {
               </div>
         </div>
          <!-- Events List Section -->
-         <div class="content-section" id="events-list-container">
+         <!-- <div class="content-section" id="events-list-container">
             <h1>Events</h1><br>
-            <!-- Search Bar -->
             <div class="search-bar">
                 <input type="text" id="search-bar" placeholder="Search events by name...">
             </div>
-            <!-- Event List -->
+            
             <div class="event-list" id="event-list">
-                <!-- Event 1 -->
+           
                 <div class="event-card" data-title="National Cricket Championship">
                     <img src="Ncc.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
@@ -1010,7 +1058,6 @@ button:active {
                     </div>
                 </div>
             
-                <!-- Event 2 -->
                 <div class="event-card" data-title="National Football League">
                     <img src="Nfl.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
@@ -1021,7 +1068,6 @@ button:active {
                     </div>
                 </div>
 
-                <!-- Event 3 -->
                 <div class="event-card" data-title="Marathon for a Cause">
                     <img src="Mfc.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
@@ -1032,7 +1078,6 @@ button:active {
                     </div>
                 </div>
 
-                <!-- Event 4 -->
                 <div class="event-card" data-title="City Marathon">
                     <img src="Cm.jpeg" alt="Event Image" class="event-image">
                     <div class="event-content">
@@ -1043,7 +1088,6 @@ button:active {
                     </div>
                 </div>
 
-                <!-- Event 5 -->
                 <div class="event-card" data-title="Kabaddi Tournament">
                     <img src="pkl.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
@@ -1054,7 +1098,6 @@ button:active {
                     </div>
                 </div>
 
-                <!-- Event 6 -->
                 <div class="event-card" data-title="Spring Relay">
                     <img src="relay.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
@@ -1065,7 +1108,6 @@ button:active {
                     </div>
                 </div>
 
-                <!-- Event 7 -->
                 <div class="event-card" data-title="Basket Ball Bash">
                     <img src="bb.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
@@ -1076,7 +1118,6 @@ button:active {
                     </div>
                 </div>
 
-                <!-- Event 8 -->
                 <div class="event-card" data-title="Himalayan Trek Challenge">
                     <img src="trek.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
@@ -1087,7 +1128,6 @@ button:active {
                     </div>
                 </div>
 
-                <!-- Event 9 -->
                 <div class="event-card" data-title="River Boating">
                     <img src="boat.jpg" alt="Event Image" class="event-image">
                     <div class="event-content">
@@ -1099,8 +1139,10 @@ button:active {
                 </div>
                 </div>
             </div>
-        </div>
-    
+        </div> -->
+        <!-- <div class="content-section" id="events-list-container">
+            <iframe src="/Sai/event.html" width="100%" height="600px" frameborder="0" id="eventIframe"></iframe>
+        </div> -->
         <div id="team-container" class="content-section">
             <div class="card">
                 <h2>Teams</h2>
@@ -1222,6 +1264,15 @@ button:active {
                 <p>Latest updates and notifications.</p>
             </div>
         </div>
+        <div id="logout-container" class="popup-container content-section" style="display: none;">
+            <div class="popup">
+                <h3>Are you sure you want to logout?</h3>
+                <div class="popup-buttons">
+                    <button onclick="logout()">Yes</button>
+                    <button onclick="closeLogoutPopup()">No</button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -1230,27 +1281,23 @@ button:active {
 
     <script>
         function showSection(sectionId) {
-    // Hide all sections
     const sections = document.querySelectorAll('.content-section');
     sections.forEach(section => {
-        section.classList.remove('active-section'); // Remove active class
+        section.classList.remove('active-section'); 
     });
-    // Handle notifications specifically
     if (sectionId === 'notifications-container') {
         const notificationsNumber = document.getElementById('notifications-number');
         if (notificationsNumber) {
-            notificationsNumber.innerHTML = 0; // Reset notification count
+            notificationsNumber.innerHTML = 0; 
         }
     }
 
-    // Show the selected section
     const selectedSection = document.getElementById(sectionId);
     if (selectedSection) {
         selectedSection.classList.add('active-section');
     }
 }
 
-        // JavaScript for Event Search
         document.getElementById('search-bar').addEventListener('input', function () {
             const query = this.value.toLowerCase();
             const events = document.querySelectorAll('.event-card');
@@ -1446,7 +1493,27 @@ document.getElementById('change-picture-input').addEventListener('change', funct
         }
     }
 });
+function activateLink(event) {
+    const links = document.querySelectorAll('.nav-link');
+    // Remove the 'active' class from all links
+    links.forEach(link => link.classList.remove('active'));
+    // Add the 'active' class to the clicked link
+    event.currentTarget.classList.add('active');
+}
 
+function openLogoutPopup() {
+    document.getElementById('logout-container').style.display = 'flex';
+}
+
+function closeLogoutPopup() {
+    document.getElementById('logout-container').style.display = 'none';
+}
+function logout() {
+    // Perform logout logic here (e.g., clear tokens)
+    alert('You have been logged out!');
+    // Redirect to another HTML page (e.g., login.html)
+    window.location.href ='/Sai/sporty.html';
+}
     </script>
 </body>
 
